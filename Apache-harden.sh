@@ -31,8 +31,12 @@ echo " TraceEnable off" >>/etc/apache2/apache2.conf
 # enable actual Ip Logging
 #sed  -i 's/LogFormat "%h %l %u %t \\"%r\\" %>s %O \\"%{Referer}i\\" \\"%{User-Agent}i\\"" combined/LogFormat "%{X-Forwarded-For}i %l %u %t \\"%r\\" %>s %O \\"%{Referer}i\\" \\"%{User-Agent}i\\"" combined/' /etc/apache2/apache2.conf
 
+sudo apt -y install libapache2-mod-security2
+sudo a2enmod security2
+sed -i 's/ServerTokens Prod/ServerTokens Full/' /etc/apache2/apache2.conf
+echo 'SecServerSignature "anonymous"' >>/etc/apache2/apache2.conf
 
-echo " 			Restarting Apache "
+echo " 			Reload Apache "
 echo -e "\n\n\n"
 
 service apache2 reload
